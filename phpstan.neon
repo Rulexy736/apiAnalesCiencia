@@ -1,0 +1,18 @@
+parameters:
+    bootstrapFiles:
+        - vendor/autoload.php
+    # scanFiles:
+    #     - vendor/bin/.phpunit/phpunit/vendor/autoload.php
+    # ignoreErrors:
+    #     - '#Class PHPUnit\\Framework\\TestCase not found.[a-zA-Z0-9\n\\_]+\(\)#'
+    treatPhpDocTypesAsCertain: false
+    level: 8
+    # Inclusions
+    paths:
+    	- src
+    	- tests
+	# Exclusions
+    excludePaths:
+        - vendor
+    tmpDir: var
+    checkGenericClassInNonGenericObjectType: false

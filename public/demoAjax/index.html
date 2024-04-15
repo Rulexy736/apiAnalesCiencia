@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>[TDW] ACiencia - Demo AJAX </title>
+    <script src="https://unpkg.com/jquery@3.7"></script>
+</head>
+<body>
+    <form id="form-login" method="post">
+        <label for="username">Usuario: </label>
+        <input type="text" id="username" name="username" placeholder="Usuario" autofocus/>
+        <label for="password">Contraseña: </label>
+        <input type="password" id="password" name="password" placeholder="Palabra clave"/>
+        <input type="button" id="btn-login" value="Login" />
+    </form>
+    <hr/>
+    <code><span id="mytoken">Scopes: (null)</span></code>
+    <hr/>
+    <code><span id="products">Products: (null)</span></code>
+    <hr/>
+    <code><span id="users">Users: (null)</span></code>
+
+<script type="text/javascript">
+    let authHeader = null;
+    $("#btn-login").click(function(){
+        $.ajax({
+            type: 'POST',
+            url: '/access_token',
+            data: $("#form-login").serialize(),
+        }).then(function (data, textStatus, request) {
+                // => show scopes, users, products, ...
+                authHeader = request.getResponseHeader('Authorization');
+                sessionStorage.setItem('authHeader', authHeader);
+                showData();
+                console.log(data)
+        }).catch(function(xmlHttpRequest, statusText, errorThrown) {
+                alert(
+                    'Your form submission failed.\n\n'
+                    + 'XML Http Request: ' + JSON.stringify(xmlHttpRequest)
+                    + ',\nStatus Text: ' + statusText
+                    + ',\nError Thrown: ' + errorThrown);
+        })
+    });
+
+    function showData() {
+        showToken();
+        showProducts();
+        showUsers();
+    }
+
+    function showToken() {
+        authHeader = sessionStorage.getItem('authHeader');
+        let token = authHeader.split(' ')[1];   // Elimina 'Bearer '
+        let myData = JSON.parse(atob(token.split('.')[1]));
+
+        // Save data to sessionStorage
+
+        sessionStorage.setItem('username', JSON.stringify(myData.sub));
+        sessionStorage.setItem('userId', JSON.stringify(myData.uid));
+        sessionStorage.setItem('scopes', JSON.stringify(myData.scopes));
+
+        console.log("JWT: " + token);
+        $('#mytoken').html(
+            "User: " + sessionStorage.getItem('username') +
+            " - JWT Scopes: " + sessionStorage.getItem('scopes')
+        );
+    }
+
+    function showProducts() {
+        authHeader = sessionStorage.getItem('authHeader');
+        $.ajax({
+            type: "GET",
+            url: '/api/v1/products',
+            headers: {"Authorization": authHeader},
+            // dataType: 'json',
+            success: function (data) {
+                $('#products').html(JSON.stringify(data));
+            }
+        })
+    }
+
+    function showUsers() {
+        authHeader = sessionStorage.getItem('authHeader');
+        $.ajax({
+            type: "GET",
+            url: '/api/v1/users',
+            headers: {"Authorization": authHeader},
+            // dataType: 'json',
+            success: function (data) {
+                $('#users').html(JSON.stringify(data));
+            }
+        })
+    }
+</script>
+</body>
+</html>
