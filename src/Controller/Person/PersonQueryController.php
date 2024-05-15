@@ -48,6 +48,6 @@ class PersonQueryController extends ElementBaseQueryController
      */
     public function getPersonname(Request $request, Response $response, array $args): Response
     {
-        // @TODO
+        return $this->getElementByName($response, $args['personname']);
     }
 }

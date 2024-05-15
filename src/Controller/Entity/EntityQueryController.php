@@ -48,6 +48,6 @@ class EntityQueryController extends ElementBaseQueryController
      */
     public function getEntityname(Request $request, Response $response, array $args): Response
     {
-        // @TODO
+        return $this->getElementByName($response, $args['entityname']);
     }
 }
