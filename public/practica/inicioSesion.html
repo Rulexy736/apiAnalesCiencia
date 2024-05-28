@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inicio de Sesión</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="inicioSesion.css">
+</head>
+<body>
+  <header>
+    <h1>Bienvenido</h1>
+  </header>
+  <main>
+    <div class="login">
+      <h2>Iniciar Sesión</h2>
+      <div id="error-message" class="error-message"></div>
+      <form id="login-form">
+        <label for="usuario">Usuario:</label>
+        <input type="text" id="usuario" name="usuario" required>
+        <label for="contrasena">Contraseña:</label>
+        <input type="password" id="contrasena" name="contrasena" required>
+        <button type="submit" id="btn-login">Iniciar Sesión</button>
+      </form>
+    </div>
+  </main>
+  <footer>
+    <p>Derechos reservados &copy; 2024</p>
+  </footer>
+
+  <script src="inicioSesion.js"></script>
+</body>
+</html>
+
+

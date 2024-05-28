@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anales de la Ciencia</title>
+  <link rel="stylesheet" href="proyectoFront.css">
+  <!-- Incluir jQuery desde un CDN -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Anales de la Ciencia</h1>
+    <div class="login">
+      <a id="linkCerrarSesion"  onclick="cerrarSesion()">Cerrar sesión</a>
+    </div>
+  </header>
+  <main>
+    <section class="introduccion">
+      <h2>Bienvenidos a Anales de la Ciencia</h2>
+      <p>Anales de la Ciencia es una revista científica que publica artículos originales de investigación en todas las áreas de la ciencia.</p>
+      <p>La revista está dirigida a un público internacional de científicos, investigadores y estudiantes.</p>
+    </section>
+    <section class="articulos">
+      <h2>Últimos artículos publicados</h2>
+    </section>
+
+    <h2>Personas</h2>
+    <ul id="listaPersonas"></ul>
+    <br>
+    <div id="modalJSONPersona" class="modal">
+      <h2 class="modal-header">Personas</h2>
+      <div id="contenidoJSONPersona" class="modal-content">
+        <pre></pre>
+      </div>
+      <button id="cerrarJsonPersona" class="modal-close">Cerrar Json</button>
+    </div>
+
+    <h2>Entidades</h2>
+    <ul id="listaEntidades"></ul>
+    <br>
+    <div id="modalJSONEntidad" class="modal">
+      <h2 class="modal-header">Entidades</h2>
+      <div id="contenidoJSONEntidad" class="modal-content">
+        <pre></pre>
+      </div>
+      <button id="cerrarJsonEntidad" class="modal-close">Cerrar Json</button>
+    </div>
+
+    <h2>Productos</h2>
+    <ul id="listaProductos"></ul>
+    <br>
+    <div id="modalJSONProducto" class="modal">
+      <h2 class="modal-header">Productos</h2>
+      <div id="contenidoJSONProducto" class="modal-content">
+        <pre></pre>
+      </div>
+      <button id="cerrarJsonProducto" class="modal-close">Cerrar Json</button>
+    </div>
+
+  </main>
+  <footer>
+    <p>Copyright &copy; 2024 Annales de la Ciencia</p>
+  </footer>
+  <script src="proyectoFront.js"></script>
+</body>
+</html>
+
+

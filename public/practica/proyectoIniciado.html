@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anales de la Ciencia</title>
+  <link rel="stylesheet" href="proyectoIniciado.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Anales de la Ciencia</h1>
+    <div class="login">
+      <a id="linkCerrarSesion" href="proyectoFront.html">Cerrar sesion</a>
+    </div>
+  </header>
+  <main>
+    <section class="introduccion">
+      <h2>Bienvenidos a Anales de la Ciencia</h2>
+      <p>Anales de la Ciencia es una revista científica que publica artículos originales de investigación en todas las áreas de la ciencia.</p>
+      <p>La revista está dirigida a un público internacional de científicos, investigadores y estudiantes.</p>
+    </section>
+
+    <h2>Personas</h2>
+    <ul id="listaPersonas"></ul>
+    <button id="crearPersona" class="botonNormal">Crear persona</button>
+
+    <div id="formulario-contenedorPersona" class="formulario-contenedor">
+      <button id="cerrar-formularioPersona" class="cerrar-formulario">x</button>
+      <form id="formularioPersona" class="formulario">
+        <h2>Crear personas</h2>
+        <input type="hidden" id="idP">
+        <label for="nombreP">Nombre:</label>
+        <input type="text" id="nombreP">
+        <br>
+        <label for="fechaNacimientoP" >Fecha de nacimiento:</label>
+        <input type="date" id="fechaNacimientoP" required>
+        <br>
+        <label for="fechaMuerteP">Fecha de muerte:</label>
+        <input type="date" id="fechaMuerteP">
+        <br>
+        <label for="imagenP">Imagen:</label>
+        <input type="text" id="imagenP">
+        <br>
+        <label for="wikiP">Wiki:</label>
+        <input type="text" id="wikiP">
+        <br>
+        <button id="guardarPersona" class="botonNormal">Guardar persona</button>
+        <button id="modificarPersona" style="display: none;" class="botonNormal">Modificar persona</button>
+      </form>
+    </div>
+
+    <div id="modalJSONPersona" class="modal">
+      <h2 class="modal-header">Personas</h2>
+      <div id="contenidoJSONPersona" class="modal-content">
+        <pre></pre>
+      </div>
+      <button id="cerrarJsonPersona" class="modal-close">Cerrar Json</button>
+    </div>
+
+    <h2>Entidades</h2>
+    <ul id="listaEntidades"></ul>
+
+    <button id="crearEntidad" class="botonNormal">Crear Entidad</button>
+
+    <div id="formulario-contenedorEntidad" class="formulario-contenedor">
+      <button id="cerrar-formularioEntidad" class="cerrar-formulario">x</button>
+      <form id="formularioEntidad" class="formulario">
+        <h2>Crear Entidad</h2>
+        <input type="hidden" id="idE">
+        <label for="nombreE">Nombre:</label>
+        <input type="text" id="nombreE" required>
+        <br>
+        <label for="fechaCreacionE" >Fecha de Creación:</label>
+        <input type="date" id="fechaCreacionE">
+        <br>
+        <label for="fechaDefuncionE" >Fecha de Defunción:</label>
+        <input type="date" id="fechaDefuncionE">
+        <br>
+        <label for="imagenE">Imagen:</label>
+        <input type="text" id="imagenE">
+        <br>
+        <label for="wikiE">Enlace Wikipedia:</label>
+        <input type="text" id="wikiE">
+        <br>
+        <label for="personas">Personas:</label>
+        <select id="personas" multiple></select>
+        <br>
+        <button id="guardarEntidad" class="botonNormal">Guardar Entidad</button>
+        <button id="modificarEntidad" class="botonNormal" style="display: none;">Modificar Entidad</button>
+      </form>
+    </div>
+    <div id="modalJSONEntidad" class="modal">
+      <h2 class="modal-header">Entidades</h2>
+      <div id="contenidoJSONEntidad" class="modal-content">
+        <pre></pre>
+      </div>
+      <button id="cerrarJsonEntidad" class="modal-close">Cerrar Json</button>
+    </div>
+
+    <h2>Productos</h2>
+    <ul id="listaProductos"></ul>
+
+    <div class="boton-container">
+      <button id="crearProducto" class="botonNormal">Crear Producto</button>
+      <button id="crearRelaciones" class="botonNormal">Actualizar Relaciones</button>
+    </div>
+
+    <div id="formulario-contenedorProducto" class="formulario-contenedor">
+      <button id="cerrar-formularioProducto" class="cerrar-formulario">x</button>
+      <form id="formularioProducto" class="formulario">
+        <h2>Crear Producto</h2>
+        <input type="hidden" id="idPr">
+        <label for="nombrePr">Nombre:</label>
+        <input type="text" id="nombrePr" required>
+        <br>
+        <label for="fechaCreacionPr">Fecha de Creación:</label>
+        <input type="date" id="fechaCreacionPr">
+        <br>
+        <label for="fechaDefuncionPr">Fecha de Defunción:</label>
+        <input type="date" id="fechaDefuncionPr">
+        <br>
+        <label for="imagenPr">Imagen:</label>
+        <input type="text" id="imagenPr">
+        <br>
+        <label for="urlPr">Url:</label>
+        <input type="text" id="urlPr">
+        <br>
+        <button id="guardarProducto" class="botonNormal">Guardar Producto</button>
+        <button id="modificarProducto" class="botonNormal" style="display: none;">Modificar Producto</button>
+      </form>
+    </div>
+
+    <div id="formulario-contenedorRelaciones" class="formulario-contenedor">
+      <button id="cerrar-formularioRelaciones" class="cerrar-formulario">x</button>
+      <form id="formularioRelaciones" class="formulario">
+        <h2>Actualizar Relaciones</h2>
+        <label for="productId">ID del Producto:</label>
+        <input type="text" id="productId" required>
+        <br>
+        <label for="relationType">Tipo de Relación:</label>
+        <select id="relationType" required>
+          <option value="entities">Entidades</option>
+          <option value="persons">Personas</option>
+        </select>
+        <br>
+        <label for="operation">Operación:</label>
+        <select id="operation" required>
+          <option value="add">Añadir</option>
+          <option value="rem">Eliminar</option>
+        </select>
+        <br>
+        <label for="entityId">ID de la Entidad/Persona:</label>
+        <input type="text" id="entityId" required>
+        <br>
+        <button id="actualizarRelacion" class="botonNormal">Actualizar Relación</button>
+      </form>
+    </div>
+
+    <div id="modalJSONProducto" class="modal">
+      <h2 class="modal-header">Productos</h2>
+      <div id="contenidoJSONProducto" class="modal-content">
+        <pre></pre>
+      </div>
+      <button id="cerrarJsonProducto" class="modal-close">Cerrar Json</button>
+    </div>
+  </main>
+  <footer>
+    <p>Copyright &copy; 2024 Anales de la Ciencia</p>
+  </footer>
+  <script src="productos.js"></script>
+  <script src="proyectoIniciado.js"></script>
+</body>
+</html>

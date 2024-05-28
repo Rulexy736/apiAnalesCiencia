@@ -15,6 +15,7 @@ use Slim\Http\Response;
 use TDW\ACiencia\Controller\Element\ElementRelationsBaseController;
 use TDW\ACiencia\Controller\Person\PersonQueryController;
 use TDW\ACiencia\Controller\Product\ProductQueryController;
+use TDW\ACiencia\Controller\Association\AssociationQueryController;
 use TDW\ACiencia\Entity\Entity;
 use TDW\ACiencia\Factory\EntityFactory;
 
@@ -65,8 +66,8 @@ final class EntityRelationsController extends ElementRelationsBaseController
     }
 
     /**
-     * PUT /entities/{entityId}/persons/add/{elementId}
-     * PUT /entities/{entityId}/persons/rem/{elementId}
+     * PUT /entities/{entitiId}/persons/add/{elementId}
+     * PUT /entities/{entitiId}/persons/rem/{elementId}
      *
      * @param Request $request
      * @param Response $response
@@ -124,6 +125,28 @@ final class EntityRelationsController extends ElementRelationsBaseController
             $response,
             $args,
             ProductQueryController::getEntityClassName()
+        );
+    }
+
+    public function getAssociations(Request $request, Response $response, array $args): Response
+    {
+        /** @var Entity|null $entity */
+        $entity = $this->entityManager
+        ->getRepository(EntityQueryController::getEntityClassName())
+        ->find($args[EntityQueryController::getEntityIdName()]);
+
+        $associations = $entity?->getAssociations() ?? [];
+
+        return $this->getElements($response, $entity, AssociationQueryController::getEntitiesTag(), $associations);
+    }
+
+    public function operationAssociation(Request $request, Response $response, array $args): Response
+    {
+        return $this->operationRelatedElements(
+            $request,
+            $response,
+            $args,
+            AssociationQueryController::getEntityClassName()
         );
     }
 }

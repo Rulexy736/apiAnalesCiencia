@@ -28,6 +28,10 @@ class Entity extends Element
     #[ORM\OrderBy([ "id" => "ASC" ])]
     protected Collection $products;
 
+    #[ORM\ManyToMany(targetEntity: Association::class, mappedBy: "entities")]
+    #[ORM\OrderBy([ "id" => "ASC" ])]
+    protected Collection $associations;
+
     /**
      * Entity constructor.
      *
@@ -47,6 +51,7 @@ class Entity extends Element
         parent::__construct($name, $birthDate, $deathDate, $imageUrl, $wikiUrl);
         $this->persons = new ArrayCollection();
         $this->products = new ArrayCollection();
+        $this->associations = new ArrayCollection();
     }
 
     // Persons
@@ -151,16 +156,49 @@ class Entity extends Element
         return $result;
     }
 
+    // Associations
+
+    /**
+     * Obtains the associations in which the entity participates
+     *
+     * @return Association[]
+     */
+    public function getAssociations(): array
+    {
+        return $this->associations->getValues();
+    }
+
+    public function containsAssociation(Association $association): bool
+    {
+        return $this->associations->contains($association);
+    }
+
+
+    public function addAssociation(Association $association): void
+    {
+        $this->associations->add($association);
+        $association->addEntity($this);
+    }
+
+
+    public function removeAssociation(Association $association): bool
+    {
+        $result = $this->associations->removeElement($association);
+        $association->removeEntity($this);
+        return $result;
+    }
+
     /**
      * @see \Stringable
      */
     public function __toString(): string
     {
         return sprintf(
-            '%s persons=%s, products=%s)]',
+            '%s persons=%s, products=%s, associations=%s)]',
             parent::__toString(),
             $this->getCodesTxt($this->getPersons()),
-            $this->getCodesTxt($this->getProducts())
+            $this->getCodesTxt($this->getProducts()),
+            $this->getCodesTxt($this->getAssociations())
         );
     }
 
@@ -173,6 +211,7 @@ class Entity extends Element
         $data = parent::jsonSerialize();
         $data['products'] = $this->getProducts() ? $this->getCodes($this->getProducts()) : null;
         $data['persons'] = $this->getPersons() ? $this->getCodes($this->getPersons()) : null;
+        $data['associations'] = $this->getAssociations() ? $this->getCodes($this->getAssociations()) : null;
 
         return ['entity' => $data];
     }

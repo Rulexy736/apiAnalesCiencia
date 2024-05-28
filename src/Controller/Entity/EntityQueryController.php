@@ -34,7 +34,7 @@ class EntityQueryController extends ElementBaseQueryController
 
     public static function getEntityIdName(): string
     {
-        return 'entityId';
+        return 'entitiId';
     }
 
     /**

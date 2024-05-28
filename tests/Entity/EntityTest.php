@@ -11,7 +11,7 @@ namespace TDW\Test\ACiencia\Entity;
 
 use PHPUnit\Framework\Attributes as TestsAttr;
 use PHPUnit\Framework\TestCase;
-use TDW\ACiencia\Entity\{ Element, Entity };
+use TDW\ACiencia\Entity\{ Element, Entity, Association };
 use TDW\ACiencia\Factory;
 
 /**
@@ -23,6 +23,8 @@ use TDW\ACiencia\Factory;
 #[TestsAttr\CoversClass(Factory\EntityFactory::class)]
 #[TestsAttr\UsesClass(Factory\PersonFactory::class)]
 #[TestsAttr\UsesClass(Factory\ProductFactory::class)]
+#[TestsAttr\UsesClass(Factory\AssociationFactory::class)]
+
 class EntityTest extends TestCase
 {
     protected static Entity $entity;
@@ -54,6 +56,8 @@ class EntityTest extends TestCase
         );
         self::assertEmpty(self::$entity->getProducts());
         self::assertEmpty(self::$entity->getPersons());
+        self::assertEmpty(self::$entity->getAssociations());
+
     }
 
     public function testGetId(): void
@@ -143,6 +147,23 @@ class EntityTest extends TestCase
         self::assertEmpty(self::$entity->getProducts());
         self::assertFalse(self::$entity->removeProduct($product));
         self::assertFalse($product->containsEntity(self::$entity));
+    }
+
+    public function testGetAddContainsRemoveAssociation(): void
+    {
+        self::assertEmpty(self::$entity->getAssociations());
+        $association = Factory\AssociationFactory::createElement(self::$faker->slug());
+
+        self::$entity->addAssociation($association);
+        self::assertNotEmpty(self::$entity->getAssociations());
+        self::assertTrue(self::$entity->containsAssociation($association));
+        self::assertTrue($association->containsEntity(self::$entity));
+
+        self::$entity->removeAssociation($association);
+        self::assertFalse(self::$entity->containsAssociation($association));
+        self::assertEmpty(self::$entity->getAssociations());
+        self::assertFalse(self::$entity->removeAssociation($association));
+        self::assertFalse($association->containsEntity(self::$entity));
     }
 
     public function testToString(): void

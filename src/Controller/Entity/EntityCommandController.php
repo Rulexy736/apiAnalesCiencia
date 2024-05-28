@@ -33,6 +33,6 @@ class EntityCommandController extends ElementBaseCommandController
 
     public static function getEntityIdName(): string
     {
-        return 'entityId';
+        return 'entitiId';
     }
 }
