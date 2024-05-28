@@ -22,34 +22,34 @@ main {
   padding: 20px;
 }
 
-/* Sección de inicio de sesión */
-.login {
+/* Sección de inicio de sesión y registro */
+.login, .register {
   margin: 0 auto;
   width: 400px;
   border: 1px solid #ccc;
   padding: 20px;
 }
 
-.login h2 {
+.login h2, .register h2 {
   margin-top: 0;
 }
 
-.login form {
+.login form, .register form {
   margin-top: 10px;
 }
 
-.login label {
+.login label, .register label {
   display: block;
   margin-bottom: 5px;
 }
 
-.login input {
+.login input, .register input {
   padding: 5px;
   width: 100%;
   margin-bottom: 10px;
 }
 
-.login button {
+.login button, .register button {
   padding: 5px 10px;
   background-color: #333;
   color: #fff;
@@ -57,13 +57,53 @@ main {
   cursor: pointer;
 }
 
-.login button:hover {
+.login button:hover, .register button:hover {
   background-color: #555;
 }
 
 .error-message {
   color: red;
   margin-bottom: 10px;
+}
+
+/* Botones alineados */
+.button-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-group button {
+  width: 48%;
+}
+
+/* Sección de email */
+#email-section {
+  margin-top: 20px;
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
+}
+
+#email-section label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+#email-section input {
+  padding: 5px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+#email-section button {
+  padding: 5px 10px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+#email-section button:hover {
+  background-color: #555;
 }
 
 /* Pie de página */
@@ -73,3 +113,4 @@ footer {
   padding: 10px;
   text-align: center;
 }
+

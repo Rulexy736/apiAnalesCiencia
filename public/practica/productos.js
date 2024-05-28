@@ -81,31 +81,40 @@ function modificarProducto() {
     $.ajax({
         type: 'GET',
         url: `http://127.0.0.1:8000/api/v1/products/${id}`,
-        headers: { "Authorization": getAuthHeader(), "accept": "application/json" }
-    }).then(response => {
-        const etag = response.getResponseHeader('ETag');
-        const producto = {
-            name: $("#nombrePr").val(),
-            birthDate: $("#fechaCreacionPr").val(),
-            deathDate: $("#fechaDefuncionPr").val(),
-            imageUrl: $("#imagenPr").val(),
-            wikiUrl: $("#urlPr").val()
-        };
-
-        $.ajax({
-            type: 'PUT',
-            url: `http://127.0.0.1:8000/api/v1/products/${id}`,
-            headers: {
-                "Authorization": getAuthHeader(),
-                'Content-Type': 'application/json',
-                "accept": "application/json",
-                "If-Match": etag
-            },
-            data: JSON.stringify(producto)
-        }).then(() => {
-            mostrarProductos();
-            ocultarFormularioProducto();
-        });
+        headers: { "Authorization": getAuthHeader(), "accept": "application/json" },
+        complete: function(response) {
+            const etag = response.getResponseHeader('ETag');
+            console.log('ETag:', etag); // Add this line to log the ETag
+            if (!etag) {
+                console.error('ETag not found');
+                return;
+            }
+            const producto = {
+                name: $("#nombrePr").val(),
+                birthDate: $("#fechaCreacionPr").val(),
+                deathDate: $("#fechaDefuncionPr").val(),
+                description: $("#descripcionPr").val(),
+                imageUrl: $("#imagenPr").val(),
+                wikiUrl: $("#urlPr").val()
+            };
+            console.log('Product Data:', JSON.stringify(producto)); // Add this line to log product data
+            $.ajax({
+                type: 'PUT',
+                url: `http://127.0.0.1:8000/api/v1/products/${id}`,
+                headers: {
+                    "Authorization": getAuthHeader(),
+                    'Content-Type': 'application/json',
+                    "accept": "application/json",
+                    "If-Match": etag
+                },
+                data: JSON.stringify(producto)
+            }).then(() => {
+                mostrarProductos();
+                ocultarFormularioProducto();
+            }).catch(error => {
+                console.error('Error updating product:', error);
+            });
+        }
     });
 }
 

@@ -5,14 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Anales de la Ciencia</title>
   <link rel="stylesheet" href="proyectoFront.css">
-  <!-- Incluir jQuery desde un CDN -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      const username = sessionStorage.getItem('username');
+      if (username) {
+        $('#usernameDisplay').text(username);
+      }
+    });
+  </script>
 </head>
 <body>
   <header>
     <h1>Anales de la Ciencia</h1>
-    <div class="login">
-      <a id="linkCerrarSesion"  onclick="cerrarSesion()">Cerrar sesión</a>
+    <div class="user-info">
+      <div class="username-display" id="usernameDisplay"></div>
+      <div class="login">
+        <a id="linkCerrarSesion" href="inicioSesion.html">Cerrar sesion</a>
+      </div>
     </div>
   </header>
   <main>
@@ -59,9 +69,7 @@
     </div>
 
   </main>
-  <footer>
-    <p>Copyright &copy; 2024 Annales de la Ciencia</p>
-  </footer>
+
   <script src="proyectoFront.js"></script>
 </body>
 </html>

@@ -6,12 +6,23 @@
   <title>Anales de la Ciencia</title>
   <link rel="stylesheet" href="proyectoIniciado.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      const username = sessionStorage.getItem('username');
+      if (username) {
+        $('#usernameDisplay').text(username);
+      }
+    });
+  </script>
 </head>
 <body>
   <header>
     <h1>Anales de la Ciencia</h1>
-    <div class="login">
-      <a id="linkCerrarSesion" href="proyectoFront.html">Cerrar sesion</a>
+    <div class="user-info">
+      <div class="username-display" id="usernameDisplay"></div>
+      <div class="login">
+        <a id="linkCerrarSesion" href="inicioSesion.html">Cerrar sesion</a>
+      </div>
     </div>
   </header>
   <main>
@@ -23,7 +34,11 @@
 
     <h2>Personas</h2>
     <ul id="listaPersonas"></ul>
-    <button id="crearPersona" class="botonNormal">Crear persona</button>
+
+    <div class="boton-container">
+      <button id="crearPersona" class="botonNormal">Crear persona</button>
+      <button id="crearRelacionesPersona" class="botonNormal">Actualizar Relaciones</button>
+    </div>
 
     <div id="formulario-contenedorPersona" class="formulario-contenedor">
       <button id="cerrar-formularioPersona" class="cerrar-formulario">x</button>
@@ -33,7 +48,7 @@
         <label for="nombreP">Nombre:</label>
         <input type="text" id="nombreP">
         <br>
-        <label for="fechaNacimientoP" >Fecha de nacimiento:</label>
+        <label for="fechaNacimientoP">Fecha de nacimiento:</label>
         <input type="date" id="fechaNacimientoP" required>
         <br>
         <label for="fechaMuerteP">Fecha de muerte:</label>
@@ -50,6 +65,32 @@
       </form>
     </div>
 
+    <div id="formulario-contenedorRelacionesPersona" class="formulario-contenedor">
+      <button id="cerrar-formularioRelacionesPersona" class="cerrar-formulario">x</button>
+      <form id="formularioRelacionesPersona" class="formulario">
+        <h2>Actualizar Relaciones</h2>
+        <label for="personaId">ID de la Persona:</label>
+        <input type="text" id="personaId" required>
+        <br>
+        <label for="relationTypePersona">Tipo de Relación:</label>
+        <select id="relationTypePersona" required>
+          <option value="entities">Entidades</option>
+          <option value="products">Productos</option>
+        </select>
+        <br>
+        <label for="operationPersona">Operación:</label>
+        <select id="operationPersona" required>
+          <option value="add">Añadir</option>
+          <option value="rem">Eliminar</option>
+        </select>
+        <br>
+        <label for="relatedIdPersona">ID de la Entidad/Producto:</label>
+        <input type="text" id="relatedIdPersona" required>
+        <br>
+        <button id="actualizarRelacionPersona" class="botonNormal">Actualizar Relación</button>
+      </form>
+    </div>
+
     <div id="modalJSONPersona" class="modal">
       <h2 class="modal-header">Personas</h2>
       <div id="contenidoJSONPersona" class="modal-content">
@@ -61,8 +102,11 @@
     <h2>Entidades</h2>
     <ul id="listaEntidades"></ul>
 
-    <button id="crearEntidad" class="botonNormal">Crear Entidad</button>
-
+    <div class="boton-container">
+      <button id="crearEntidad" class="botonNormal">Crear Entidad</button>
+      <button id="crearRelacionesEntidad" class="botonNormal">Actualizar Relaciones</button>
+    </div>
+    
     <div id="formulario-contenedorEntidad" class="formulario-contenedor">
       <button id="cerrar-formularioEntidad" class="cerrar-formulario">x</button>
       <form id="formularioEntidad" class="formulario">
@@ -71,10 +115,10 @@
         <label for="nombreE">Nombre:</label>
         <input type="text" id="nombreE" required>
         <br>
-        <label for="fechaCreacionE" >Fecha de Creación:</label>
+        <label for="fechaCreacionE">Fecha de Creación:</label>
         <input type="date" id="fechaCreacionE">
         <br>
-        <label for="fechaDefuncionE" >Fecha de Defunción:</label>
+        <label for="fechaDefuncionE">Fecha de Defunción:</label>
         <input type="date" id="fechaDefuncionE">
         <br>
         <label for="imagenE">Imagen:</label>
@@ -90,12 +134,40 @@
         <button id="modificarEntidad" class="botonNormal" style="display: none;">Modificar Entidad</button>
       </form>
     </div>
+
     <div id="modalJSONEntidad" class="modal">
       <h2 class="modal-header">Entidades</h2>
       <div id="contenidoJSONEntidad" class="modal-content">
         <pre></pre>
       </div>
       <button id="cerrarJsonEntidad" class="modal-close">Cerrar Json</button>
+    </div>
+
+
+    <div id="formulario-contenedorRelacionesEntidad" class="formulario-contenedor">
+      <button id="cerrar-formularioRelacionesEntidad" class="cerrar-formulario">x</button>
+      <form id="formularioRelacionesEntidad" class="formulario">
+        <h2>Actualizar Relaciones</h2>
+        <label for="entidadId">ID de la Entidad:</label>
+        <input type="text" id="entidadId" required>
+        <br>
+        <label for="relationTypeEntidad">Tipo de Relación:</label>
+        <select id="relationTypeEntidad" required>
+          <option value="products">Productos</option>
+          <option value="persons">Personas</option>
+        </select>
+        <br>
+        <label for="operationEntidad">Operación:</label>
+        <select id="operationEntidad" required>
+          <option value="add">Añadir</option>
+          <option value="rem">Eliminar</option>
+        </select>
+        <br>
+        <label for="relatedIdEntidad">ID del Producto/Persona:</label>
+        <input type="text" id="relatedIdEntidad" required>
+        <br>
+        <button id="actualizarRelacionEntidad" class="botonNormal">Actualizar Relación</button>
+      </form>
     </div>
 
     <h2>Productos</h2>
@@ -164,11 +236,66 @@
       </div>
       <button id="cerrarJsonProducto" class="modal-close">Cerrar Json</button>
     </div>
+
+    <h2>Usuarios</h2>
+<ul id="listaUsuarios"></ul>
+<div class="boton-container">
+  <button id="crearUsuario" class="botonNormal">Crear Usuario</button>
+  <button id="cambiarRolUsuario" class="botonNormal">Cambiar Rol Usuario</button>
+</div>
+
+<div id="formulario-contenedorUsuario" class="formulario-contenedor">
+  <button id="cerrar-formularioUsuario" class="cerrar-formulario">x</button>
+  <form id="formularioUsuario" class="formulario">
+    <h2>Crear Usuario</h2>
+    <input type="hidden" id="idU">
+    <label for="usernameU">Nombre de usuario:</label>
+    <input type="text" id="usernameU" required>
+    <br>
+    <label for="emailU">Email:</label>
+    <input type="text" id="emailU" required>
+    <br>
+    <label for="passwordU">Contraseña:</label>
+    <input type="password" id="passwordU" required>
+    <br>
+    <button id="guardarUsuario" class="botonNormal">Guardar Usuario</button>
+    <button id="modificarUsuario" class="botonNormal" style="display: none;">Modificar Usuario</button>
+  </form>
+</div>
+
+<div id="formulario-contenedorCambioRol" class="formulario-contenedor">
+  <button id="cerrar-formularioCambioRol" class="cerrar-formulario">x</button>
+  <form id="formularioCambioRol" class="formulario">
+    <h2>Cambiar Rol de Usuario</h2>
+    <label for="cambioRolId">ID del Usuario:</label>
+    <input type="text" id="cambioRolId" required>
+    <br>
+    <label for="cambioRolNuevo">Nuevo Rol:</label>
+    <select id="cambioRolNuevo" required>
+      <option value="INACTIVE">INACTIVE</option>
+      <option value="READER">READER</option>
+      <option value="WRITER">WRITER</option>
+    </select>
+    <br>
+    <button id="guardarCambioRol" class="botonNormal">Guardar Cambio de Rol</button>
+  </form>
+</div>
+
+<div id="modalJSONUsuario" class="modal">
+  <h2 class="modal-header">Usuarios</h2>
+  <div id="contenidoJSONUsuario" class="modal-content">
+    <pre></pre>
+  </div>
+  <button id="cerrarJsonUsuario" class="modal-close">Cerrar Json</button>
+</div>
+
   </main>
-  <footer>
-    <p>Copyright &copy; 2024 Anales de la Ciencia</p>
-  </footer>
+
+  <script src="users.js"></script>
+  <script src="personas.js"></script>
+  <script src="entidades.js"></script>
   <script src="productos.js"></script>
   <script src="proyectoIniciado.js"></script>
 </body>
 </html>
+

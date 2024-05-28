@@ -1,4 +1,3 @@
-/* General Styles */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -16,7 +15,21 @@ h1 {
 }
 
 h2 {
-  font-size: 1.8em;
+  font-size: 1.2em;
+}
+
+p {
+  line-height: 1.5;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
 }
 
 /* Header Styles */
@@ -25,10 +38,23 @@ header {
   color: #fff;
   padding: 20px 0;
   text-align: center;
+  position: relative;
+}
+
+.user-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.username-display {
+  font-size: 1em;
+  color: #fff;
+  margin-left: 20px;
 }
 
 .login {
-  float: right;
   margin-right: 20px;
 }
 
@@ -55,35 +81,49 @@ h2.titulo-seccion {
   margin-bottom: 10px;
 }
 
-/* Article Section Styles */
-.articulos {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around; /* Distribute articles evenly */
+/* Forms Styles */
+.formulario-contenedor {
+  position: relative;
+  display: none;
 }
 
-.articulo {
-  width: 30%; /* Adjust width as needed */
-  margin-bottom: 20px;
-  text-align: center;
+.cerrar-formulario {
+  position: absolute;
+  top: 10px;
+  right: 30px;
+  cursor: pointer;
+  background-color: #ccc;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 50%;
 }
 
-.articulo img {
-  width: 100%;
-  height: auto; /* Maintain aspect ratio */
-  border-radius: 5px;
-  margin-bottom: 10px;
+.cerrar-formulario:hover {
+  background-color: #999;
 }
 
-/* List Section Styles */
-ul {
-  list-style: none;
-  padding: 0;
+.formulario {
+  background-color: #fff;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-li {
-  padding: 10px 0;
-  border-bottom: 1px solid #ddd;
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="date"],
+select {
+  width: 95%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin-bottom: 5px;
 }
 
 .botonNormal {
@@ -116,7 +156,7 @@ li {
 
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto;
+  margin: 5% auto;
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
@@ -131,10 +171,14 @@ li {
 }
 
 .modal-close {
-  color: #aaa;
+  color: #5c5b5b;
+  background-color: #ffffff;
   float: right;
-  font-size: 28px;
+  padding: 10px 20px;
+  font-size: 20px;
   font-weight: bold;
+  margin-right: 30px;
+  margin-bottom: 20px;
 }
 
 .modal-close:hover,
@@ -144,63 +188,38 @@ li {
   cursor: pointer;
 }
 
-.modal-content pre {
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  font-family: monospace;
-}
-
-  /* Pie de página */
-  footer {
-    background-color: #333;
-    color: #fff;
-    padding: 10px;
-    text-align: center;
-  }
-
 /* Responsive Design */
 @media (max-width: 768px) {
-  /* Adjust styles for smaller screens */
-
   section {
     padding: 10px;
   }
 
-  .articulo {
-    width: 50%; /* Adjust width for smaller screens */
-  }
-
   .modal-content {
-    width: 95%; /* Adjust modal width for smaller screens */
+    width: 95%;
   }
 }
 
 @media (max-width: 480px) {
   .modal-content {
-    width: 95%; /* Adjust modal width for smaller screens */
+    width: 100%;
+  }
+
+  .modal-header {
+    font-size: 18px;
+  }
+
+  .modal-close {
+    font-size: 24px;
   }
 }
 
-@media (max-width: 480px) {
-  h1 {
-    font-size: 2em; /* Increase title size for very small screens */
-  }
-
-  h2 {
-    font-size: 1.6em; /* Increase subtitle size for very small screens */
-  }
-
-  p {
-    font-size: 16px; /* Increase paragraph size for very small screens */
-  }
+.boton-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
-@media (max-width: 480px) {
-  section {
-    padding: 5px; /* Reduce section padding */
-  }
-
-  ul li {
-    padding: 5px 0; /* Reduce list item padding */
-  }
+.boton-container .botonNormal {
+  margin-left: 10px;
+  margin-right: 10px;
 }
